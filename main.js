@@ -1,3 +1,5 @@
+prediction1="";
+prediction2="";
 //Code for setting webcam
 Webcam.set({
 width:350,
@@ -17,10 +19,9 @@ function take_snapshot()
         document.getElementById("result").innerHTML='<img id="capture_image" src="'+data_uri+'"/>';
     });
 }
-
+console.log('ml5version',ml5.version);
 //Code for importing model
-classifier=ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/oyuDFb8NK/model.json',modelLoaded);
-
+classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/5mxzZHkpx/model.json',modelLoaded);
 //Defining model loaded function
 function  modelLoaded(){
     console.log('modelLoaded');
@@ -47,7 +48,11 @@ if(error){
 else{
 console.log(results);
 document.getElementById("result1").innerHTML=results[0].label;
+
 document.getElementById("result2").innerHTML=results[1].label;
+prediction1=results[0].label;
+prediction2=results[1].label;
+speak();
 if(results[0].label=="happy"){
     document.getElementById("update_emoji1").innerHTML="&#128522"
 }
